@@ -67,52 +67,75 @@ const categories = [
   },
 ]
 
+const categoryImages: Record<string, string> = {
+  Hair: '/images/haircare.jpg',
+  Skincare: '/images/skincare.jpg',
+  Bridal: '/images/bridal.jpg',
+  Nails: '/images/nails.jpg',
+}
+
 export default function Services() {
   return (
     <PageTransition>
-      <section className="pt-40 pb-20 px-6 relative">
+      <section className="py-32 px-6 relative">
+        <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_#c9a96e06_0%,_transparent_60%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#c9a96e08_0%,_transparent_70%)]" />
         <div className="max-w-5xl mx-auto relative z-10">
           <ScrollReveal className="text-center mb-20">
             <span className="text-[#c9a96e] text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-ui)]">Our Menu</span>
-            <h1 className="text-5xl md:text-7xl font-[family-name:var(--font-heading)] text-white leading-[1.1] mt-6 mb-6">
-              Services &<br />Pricing
-            </h1>
+            <div className="relative inline-block mt-6 mb-6">
+              <div className="absolute -top-4 -left-4 w-8 h-8 border-t border-l border-[#c9a96e]/40" aria-hidden="true" />
+              <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b border-r border-[#c9a96e]/40" aria-hidden="true" />
+              <h1 className="text-4xl md:text-6xl font-[family-name:var(--font-heading)] text-white">Our Services</h1>
+            </div>
             <div className="w-12 h-px bg-[#c9a96e]/40 mx-auto" />
           </ScrollReveal>
 
-          {categories.map((cat, ci) => (
-            <ScrollReveal key={cat.title} delay={ci * 0.08} className="mb-20">
-              <div className="flex items-center gap-6 mb-10">
-                <span className="text-[#c9a96e] text-4xl font-[family-name:var(--font-heading)]">0{ci + 1}</span>
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] text-white">{cat.title}</h2>
-                  <div className="w-16 h-px bg-[#c9a96e]/30 mt-3" />
-                </div>
-              </div>
-              <div className="space-y-1">
-                {cat.items.map((item, ii) => (
-                    <div
-                    key={ii}
-                    className="group flex items-center justify-between py-4 px-6 hover:bg-white/[0.02] transition-colors duration-300 border-b border-white/[0.03] relative"
-                  >
-                    <span className="absolute left-0 top-0 bottom-0 w-[1px] bg-[#c9a96e]/0 group-hover:bg-[#c9a96e]/40 transition-colors duration-500" />
-                    <span className="text-[#a69c94] group-hover:text-white transition-colors duration-300 text-sm tracking-wide">
-                      {item.name}
-                    </span>
-                    <span className="text-[#c9a96e] text-sm font-[family-name:var(--font-ui)] font-medium">{item.price}</span>
+          {categories.flatMap((cat, ci) => {
+            const section = (
+              <ScrollReveal key={cat.title} delay={ci * 0.08} className="mb-20">
+                <div className="flex items-center gap-6 mb-10">
+                  <span className="text-[#c9a96e] text-4xl font-[family-name:var(--font-heading)]">0{ci + 1}</span>
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] text-white">{cat.title}</h2>
+                    <div className="w-16 h-px bg-[#c9a96e]/30 mt-3" />
                   </div>
-                ))}
-              </div>
-            </ScrollReveal>
-          ))}
+                </div>
+                <div className="space-y-1">
+                  {cat.items.map((item) => (
+                    <div
+                      key={`${cat.title}-${item.name}`}
+                      className="group flex items-center justify-between py-4 px-6 hover:bg-white/[0.02] focus-visible:bg-white/[0.03] focus-visible:outline-none transition-colors duration-300 border-b border-white/[0.03] relative"
+                    >
+                      <span className="absolute left-0 top-0 bottom-0 w-[1px] bg-[#c9a96e]/0 group-hover:bg-[#c9a96e]/40 transition-colors duration-500" />
+                      <span className="text-[#a69c94] group-hover:text-white transition-colors duration-300 text-sm tracking-wide">
+                        {item.name}
+                      </span>
+                      <span className="text-[#c9a96e] text-sm font-[family-name:var(--font-ui)] font-medium">{item.price}</span>
+                    </div>
+                  ))}
+                </div>
+              </ScrollReveal>
+            )
+
+            if (ci < categories.length - 1 && categoryImages[cat.title]) {
+              return [
+                section,
+                <div key={`divider-${cat.title}`} className="relative h-64 -mx-8 md:-mx-12 rounded-sm overflow-hidden border border-white/5 my-24">
+                  <img src={categoryImages[cat.title]} alt={`${cat.title} treatment`} className="w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d]/80 via-transparent to-[#0d0d0d]/80" />
+                </div>,
+              ]
+            }
+            return [section]
+          })}
 
           <ScrollReveal className="text-center mt-16 p-12 border border-white/5 bg-[#0a0a0a]">
             <p className="text-[#a69c94] text-sm mb-4 italic font-[family-name:var(--font-body)]">Prices subject to change based on stylist seniority.</p>
             <p className="text-[#a69c94] text-sm italic font-[family-name:var(--font-body)] mb-8">A 20% gratuity is respectfully suggested for exceptional service.</p>
             <Link
               to="/contact"
-              className="inline-block px-10 py-3.5 border border-[#c9a96e] text-[#c9a96e] text-xs tracking-[0.2em] uppercase hover:bg-[#c9a96e] hover:text-[#0d0d0d] transition-all duration-500"
+              className="inline-block px-10 py-3.5 border border-[#c9a96e] text-[#c9a96e] text-xs tracking-[0.2em] uppercase hover:bg-[#c9a96e] hover:text-[#0d0d0d] transition-all duration-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a96e]/50"
             >
               Book an Appointment
             </Link>

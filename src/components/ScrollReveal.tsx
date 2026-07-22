@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 
 interface Props {
   children: ReactNode
@@ -12,7 +12,17 @@ interface Props {
 export default function ScrollReveal({ children, className = '', delay = 0, direction = 'up' }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
-  const offsets = { up: { y: 50 }, down: { y: -50 }, left: { x: -50 }, right: { x: 50 }, none: {} }
+  const prefersReduced = useReducedMotion()
+  const offsets = {
+    up: { y: 50, x: 0 },
+    down: { y: -50, x: 0 },
+    left: { y: 0, x: -50 },
+    right: { y: 0, x: 50 },
+    none: { y: 0, x: 0 },
+  }
+  if (prefersReduced) {
+    return <div className={className}>{children}</div>
+  }
   return (
     <motion.div
       ref={ref}

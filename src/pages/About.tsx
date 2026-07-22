@@ -22,14 +22,19 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
     return () => clearInterval(t)
   }, [isInView, to])
 
-  return <span ref={ref}>{count}{suffix}</span>
+  return (
+    <>
+      <span ref={ref} aria-hidden="true">{count}{suffix}</span>
+      <span className="sr-only">{to}{suffix}</span>
+    </>
+  )
 }
 
 const team = [
-  { name: 'Amara Delacroix', role: 'Creative Director & Founder', bio: 'With over 18 years of experience in Paris and London, Amara brings editorial precision to every appointment.' },
-  { name: 'Marcus Chen', role: 'Master Colorist', bio: 'Award-winning color artist specializing in balayage, lived-in color, and transformative blonding techniques.' },
-  { name: 'Sofia Reyes', role: 'Lead Esthetician', bio: 'Certified in advanced facial therapies, Sofia creates customized skincare treatments for every skin type.' },
-  { name: 'Julian Ward', role: 'Bridal Director', bio: 'Julian has orchestrated beauty for over 300 weddings, bringing calm and artistry to every bridal suite.' },
+  { name: 'Amara Delacroix', role: 'Creative Director & Founder', bio: 'With over 18 years of experience in Paris and London, Amara brings editorial precision to every appointment.', img: '/images/team-1.jpg' },
+  { name: 'Marcus Chen', role: 'Master Colorist', bio: 'Award-winning color artist specializing in balayage, lived-in color, and transformative blonding techniques.', img: '/images/team-2.jpg' },
+  { name: 'Sofia Reyes', role: 'Lead Esthetician', bio: 'Certified in advanced facial therapies, Sofia creates customized skincare treatments for every skin type.', img: '/images/team-3.jpg' },
+  { name: 'Julian Ward', role: 'Bridal Director', bio: 'Julian has orchestrated beauty for over 300 weddings, bringing calm and artistry to every bridal suite.', img: '/images/team-4.jpg' },
 ]
 
 const values = [
@@ -60,12 +65,11 @@ export default function About() {
               </p>
             </ScrollReveal>
             <ScrollReveal direction="right" delay={0.2}>
-              <div className="aspect-[3/4] bg-gradient-to-br from-[#c9a96e10] to-[#1a1a1a] border border-white/5 rounded-sm flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 rounded-full border border-[#c9a96e]/30 mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-[#c9a96e] text-3xl">✦</span>
-                  </div>
-                  <p className="text-[#a69c94] text-sm tracking-wider">Beverly Hills Studio</p>
+              <div className="aspect-[3/4] overflow-hidden rounded-sm border border-white/5 relative">
+                <img src="/images/studio.jpg" alt="Maison Éclat Beverly Hills Studio" loading="lazy" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <p className="text-white/80 text-sm tracking-wider">Beverly Hills Studio</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -122,15 +126,11 @@ export default function About() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((m, i) => (
               <ScrollReveal key={m.name} delay={i * 0.08}>
-                <div className="group">
-                  <div className="aspect-[3/4] bg-gradient-to-br from-[#c9a96e08] to-[#1a1a1a] border border-white/5 mb-6 flex items-center justify-center relative overflow-hidden">
-                    <div className="text-center relative z-10">
-                      <div className="w-14 h-14 rounded-full border border-[#c9a96e]/30 mx-auto mb-3 flex items-center justify-center group-hover:border-[#c9a96e]/60 transition-colors duration-500">
-                        <span className="text-[#c9a96e] text-2xl">✦</span>
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#c9a96e15] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#c9a96e]/0 group-hover:bg-[#c9a96e]/60 transition-colors duration-500" />
+                <div className="group focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2" tabIndex={0}>
+                  <div className="aspect-[3/4] bg-[#1a1a1a] border border-white/5 mb-6 relative overflow-hidden">
+                    <img src={m.img} alt={m.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#c9a96e15] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div aria-hidden="true" className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#c9a96e]/0 group-hover:bg-[#c9a96e]/60 transition-colors duration-500" />
                   </div>
                   <h3 className="text-lg font-[family-name:var(--font-heading)] text-white mb-1">{m.name}</h3>
                   <p className="text-[#c9a96e] text-xs tracking-wider uppercase mb-3">{m.role}</p>

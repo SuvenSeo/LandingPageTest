@@ -17,7 +17,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
+          <nav aria-label="Footer navigation">
             <h4 className="text-white text-xs tracking-[0.15em] uppercase mb-6 font-[family-name:var(--font-ui)] font-medium">Navigate</h4>
             <div className="flex flex-col gap-3">
               {[
@@ -27,22 +27,22 @@ export default function Footer() {
                 { to: '/about', label: 'About' },
                 { to: '/contact', label: 'Contact' },
               ].map(l => (
-                <Link key={l.to} to={l.to} className="text-[#a69c94] text-sm hover:text-[#c9a96e] transition-colors duration-300">
+                <Link key={l.to} to={l.to} className="text-[#a69c94] text-sm hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-2 block">
                   {l.label}
                 </Link>
               ))}
             </div>
-          </div>
+          </nav>
 
-          <div>
+          <nav aria-label="Social links">
             <h4 className="text-white text-xs tracking-[0.15em] uppercase mb-6 font-[family-name:var(--font-ui)] font-medium">Connect</h4>
             <div className="flex flex-col gap-3 text-[#a69c94] text-sm">
-              <span>Instagram</span>
-              <span>Pinterest</span>
-              <span>Facebook</span>
-              <span>YouTube</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-1 block">Instagram</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-1 block">Pinterest</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-1 block">Facebook</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-1 block">YouTube</a>
             </div>
-          </div>
+          </nav>
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -50,8 +50,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Maison Éclat. All rights reserved.
           </p>
           <div className="flex gap-6 text-[#666] text-xs tracking-wider">
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
+            <a href="#" className="hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-2 block">Privacy Policy</a>
+            <a href="#" className="hover:text-[#c9a96e] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-[#c9a96e] focus-visible:outline-offset-2 py-2 block">Terms of Service</a>
           </div>
         </div>
       </div>

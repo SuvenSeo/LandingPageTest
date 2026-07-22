@@ -32,14 +32,16 @@ export default function Home() {
   return (
     <PageTransition>
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0d0d0d] z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#c9a96e15_0%,_transparent_70%)]" />
-        <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(circle at 25% 50%, #1a1a1a 0%, #0d0d0d 100%)` }} />
+        <div className="absolute inset-0">
+          <img src="/images/salon-hero.jpg" alt="Luxury salon interior" fetchPriority="high" loading="eager" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0d0d0d]/95 z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#c9a96e15_0%,_transparent_70%)] z-10" />
         <div className="absolute inset-0 overflow-hidden z-10 pointer-events-none">
-          <div className="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-[#c9a96e]/20 to-transparent" />
-          <div className="absolute top-20 left-10 w-40 h-px bg-gradient-to-r from-[#c9a96e]/20 to-transparent" />
-          <div className="absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-[#c9a96e]/20 to-transparent" />
-          <div className="absolute bottom-20 right-10 w-40 h-px bg-gradient-to-l from-[#c9a96e]/20 to-transparent" />
+          <div aria-hidden="true" className="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-[#c9a96e]/20 to-transparent" />
+          <div aria-hidden="true" className="absolute top-20 left-10 w-40 h-px bg-gradient-to-r from-[#c9a96e]/20 to-transparent" />
+          <div aria-hidden="true" className="absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-[#c9a96e]/20 to-transparent" />
+          <div aria-hidden="true" className="absolute bottom-20 right-10 w-40 h-px bg-gradient-to-l from-[#c9a96e]/20 to-transparent" />
         </div>
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-20 text-center px-6 max-w-4xl">
           <motion.p variants={fadeUp} className="text-[#c9a96e] text-xs tracking-[0.3em] uppercase mb-6 font-[family-name:var(--font-ui)]">
@@ -52,7 +54,7 @@ export default function Home() {
             Where every treatment is a masterpiece and every guest is a muse.
           </motion.p>
           <motion.div variants={fadeUp} className="flex items-center justify-center gap-6">
-            <Link to="/services" className="group relative px-10 py-4 text-xs tracking-[0.2em] uppercase overflow-hidden">
+            <Link to="/services" className="group relative px-10 py-4 text-xs tracking-[0.2em] uppercase overflow-hidden active:scale-[0.98]">
               <span className="absolute inset-0 border border-[#c9a96e] group-hover:bg-[#c9a96e] transition-all duration-500" />
               <span className="absolute inset-0 border border-[#c9a96e]/0 group-hover:border-[#c9a96e]/40 group-hover:scale-110 transition-all duration-500" />
               <span className="relative text-[#c9a96e] group-hover:text-[#0d0d0d] transition-colors duration-500">Explore Services</span>
@@ -63,13 +65,14 @@ export default function Home() {
           </motion.div>
         </motion.div>
         <motion.div
+          aria-hidden="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
         >
           <div className="w-px h-16 bg-gradient-to-b from-[#c9a96e] to-transparent mx-auto mb-3" />
-          <p className="text-[#666] text-[10px] tracking-[0.3em] uppercase font-[family-name:var(--font-ui)]">Scroll</p>
+          <p className="text-[#a69c94] text-[10px] tracking-[0.3em] uppercase font-[family-name:var(--font-ui)]">Scroll</p>
         </motion.div>
       </section>
 
@@ -77,18 +80,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <ScrollReveal direction="left">
-              <div className="relative aspect-[4/5]">
-                <div className="absolute inset-0 border border-white/5 rounded-sm" />
-                <div className="absolute inset-2 bg-gradient-to-br from-[#c9a96e10] to-[#1a1a1a] rounded-sm flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 rounded-full border border-[#c9a96e]/30 mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-[#c9a96e] text-2xl">✦</span>
-                    </div>
-                    <p className="text-[#a69c94] text-sm tracking-wider">Editorial Space</p>
-                  </div>
-                </div>
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 border border-[#c9a96e]/10 rounded-sm pointer-events-none" />
-              </div>
+            <div className="relative aspect-[4/5]">
+              <img src="/images/studio.jpg" alt="Maison Éclat studio interior" loading="lazy" className="absolute inset-0 w-full h-full object-cover rounded-sm" />
+              <div className="absolute inset-0 border border-white/5 rounded-sm pointer-events-none" />
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 border border-[#c9a96e]/10 rounded-sm pointer-events-none" />
+            </div>
             </ScrollReveal>
             <ScrollReveal direction="right" delay={0.2}>
               <span className="text-[#c9a96e] text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-ui)]">Our Philosophy</span>
@@ -127,7 +123,7 @@ export default function Home() {
                 <span className="text-[#c9a96e] text-4xl font-[family-name:var(--font-heading)]">0{i + 1}</span>
                 <h3 className="text-2xl font-[family-name:var(--font-heading)] text-white mt-6 mb-4">{s.title}</h3>
                 <p className="text-[#a69c94] text-sm leading-relaxed mb-6">{s.desc}</p>
-                <p className="text-[#666] text-xs tracking-wider leading-loose">{s.items}</p>
+                <p className="text-[#a69c94] text-xs tracking-wider leading-loose">{s.items}</p>
               </ScrollReveal>
             ))}
           </div>
@@ -138,7 +134,7 @@ export default function Home() {
                 <span className="text-[#c9a96e] text-4xl font-[family-name:var(--font-heading)]">0{i + 4}</span>
                 <h3 className="text-2xl font-[family-name:var(--font-heading)] text-white mt-6 mb-4">{s.title}</h3>
                 <p className="text-[#a69c94] text-sm leading-relaxed mb-6">{s.desc}</p>
-                <p className="text-[#666] text-xs tracking-wider leading-loose">{s.items}</p>
+                <p className="text-[#a69c94] text-xs tracking-wider leading-loose">{s.items}</p>
               </ScrollReveal>
             ))}
           </div>
@@ -171,7 +167,7 @@ export default function Home() {
                   <p className="text-[#a69c94] text-sm leading-relaxed mb-8 flex-1">{t.text}</p>
                   <div className="pt-6 border-t border-white/5">
                     <p className="text-white text-sm font-[family-name:var(--font-ui)] font-medium">{t.name}</p>
-                    <p className="text-[#666] text-xs tracking-wider mt-1">{t.title}</p>
+                    <p className="text-[#a69c94] text-xs tracking-wider mt-1">{t.title}</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -193,7 +189,7 @@ export default function Home() {
             </p>
             <Link
               to="/contact"
-              className="relative inline-block px-12 py-4 text-xs tracking-[0.2em] uppercase font-[family-name:var(--font-ui)] font-medium group overflow-hidden"
+              className="relative inline-block px-12 py-3.5 text-xs tracking-[0.2em] uppercase font-[family-name:var(--font-ui)] font-medium group overflow-hidden active:scale-[0.98]"
             >
               <span className="absolute inset-0 bg-[#c9a96e] group-hover:bg-[#dfc08a] transition-all duration-500" />
               <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[linear-gradient(120deg,transparent_0%,transparent_40%,rgba(255,255,255,0.3)_50%,transparent_60%,transparent_100%)] bg-[length:200%_100%] group-hover:animate-[gold-shimmer_2s_ease-in-out] transition-opacity" />
